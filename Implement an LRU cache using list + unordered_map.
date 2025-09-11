@@ -1,0 +1,54 @@
+An LRU (Least Recently Used) cache can be implemented efficiently in C++ using a std::list to maintain the order of usage and a std::unordered_map for O(1) key lookups.
+C++
+
+#include <list>
+#include <unordered_map>
+#include <utility> // For std::pair
+
+class LRUCache {
+private:
+    // Doubly linked list to store key-value pairs in order of usage.
+    // The most recently used items are at the front.
+    std::list<std::pair<int, int>> cacheList;
+
+    // Hash map to store key and an iterator to its corresponding node in cacheList.
+    std::unordered_map<int, std::list<std::pair<int, int>>::iterator> cacheMap;
+
+    int capacity;
+
+    // Helper function to move an item to the front of the list (most recently used).
+    void moveToFront(int key) {
+        cacheList.splice(cacheList.begin(), cacheList, cacheMap[key]);
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+
+    int get(int key) {
+        if (cacheMap.find(key) == cacheMap.end()) {
+            return -1; // Key not found
+        }
+        // Move the accessed item to the front (most recently used)
+        moveToFront(key);
+        return cacheMap[key]->second; // Return the value
+    }
+
+    void put(int key, int value) {
+        if (cacheMap.find(key) != cacheMap.end()) {
+            // Key exists, update its value and move to front
+            cacheMap[key]->second = value;
+            moveToFront(key);
+        } else {
+            // Key does not exist
+            if (cacheList.size() == capacity) {
+                // Cache is full, evict the least recently used item (from the back)
+                int lruKey = cacheList.back().first;
+                cacheList.pop_back();
+                cacheMap.erase(lruKey);
+            }
+            // Add the new item to the front
+            cacheList.push_front({key, value});
+            cacheMap[key] = cacheList.begin();
+        }
+    }
+};
