@@ -1,0 +1,37 @@
+To reverse a std::list in C++, the std::list::reverse() member function is used. This function modifies the list in-place, reversing the order of its elements. 
+Here is an example demonstrating its usage:
+C++
+
+#include <iostream>
+#include <list>
+#include <algorithm> // Not strictly needed for std::list::reverse(), but good practice for other algorithms
+
+int main() {
+    // Create a std::list of integers
+    std::list<int> myList;
+
+    // Add elements to the list
+    myList.push_back(10);
+    myList.push_back(20);
+    myList.push_back(30);
+    myList.push_back(40);
+
+    // Print the original list
+    std::cout << "Original List: ";
+    for (int val : myList) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+
+    // Reverse the list using the reverse() member function
+    myList.reverse();
+
+    // Print the reversed list
+    std::cout << "Reversed List: ";
+    for (int val : myList) {
+        std::cout << val << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
