@@ -1,0 +1,49 @@
+To check for balanced parentheses in a string using std::stack<char> in C++, follow these steps:
+Initialize an empty stack: Create an empty std::stack<char> to store opening brackets.
+Iterate through the string: Traverse the input string character by character.
+Handle opening brackets: If the current character is an opening bracket ((, {, [), push it onto the stack. 
+Handle closing brackets: If the current character is a closing bracket (), }, ]):
+Check for empty stack: If the stack is empty, it means a closing bracket appeared without a corresponding opening bracket, so the parentheses are not balanced. Return false.
+Pop and match: Pop the top element from the stack. Check if this popped element is the corresponding opening bracket for the current closing bracket. If they don't match (e.g., ) and {), the parentheses are not balanced. Return false.
+After traversal: After iterating through the entire string, if the stack is empty, it means all opening brackets have found their corresponding closing brackets, and the parentheses are balanced. Return true. Otherwise, if the stack is not empty, it means there are unmatched opening brackets, and the parentheses are not balanced. Return false.
+Here's a C++ code example demonstrating this:
+C++
+
+#include <iostream>
+#include <stack>
+#include <string>
+
+bool isBalanced(const std::string& expr) {
+    std::stack<char> s;
+    for (char ch : expr) {
+        if (ch == '(' || ch == '{' || ch == '[') {
+            s.push(ch);
+        } else if (ch == ')' || ch == '}' || ch == ']') {
+            if (s.empty()) {
+                return false; // Closing bracket without a matching opening bracket
+            }
+            char top = s.top();
+            s.pop();
+            if ((ch == ')' && top != '(') ||
+                (ch == '}' && top != '{') ||
+                (ch == ']' && top != '[')) {
+                return false; // Mismatched opening and closing brackets
+            }
+        }
+    }
+    return s.empty(); // True if all opening brackets are matched
+}
+
+int main() {
+    std::string expr1 = "{[()]}";
+    std::string expr2 = "{[(])}";
+    std::string expr3 = "((()))";
+    std::string expr4 = "(()";
+
+    std::cout << expr1 << " is balanced: " << (isBalanced(expr1) ? "true" : "false") << std::endl;
+    std::cout << expr2 << " is balanced: " << (isBalanced(expr2) ? "true" : "false") << std::endl;
+    std::cout << expr3 << " is balanced: " << (isBalanced(expr3) ? "true" : "false") << std::endl;
+    std::cout << expr4 << " is balanced: " << (isBalanced(expr4) ? "true" : "false") << std::endl;
+
+    return 0;
+}
