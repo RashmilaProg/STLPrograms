@@ -1,0 +1,38 @@
+To partition even and odd numbers in a std::vector using std::partition, a predicate function is required that returns true for elements that should be placed in the first partition (e.g., even numbers) and false for elements that should be placed in the second partition (e.g., odd numbers).
+Here is an example:
+C++
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Required for std::partition
+
+// Predicate to check if a number is even
+bool isEven(int n) {
+    return n % 2 == 0;
+}
+
+int main() {
+    std::vector<int> numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+    std::cout << "Original vector: ";
+    for (int n : numbers) {
+        std::cout << n << " ";
+    }
+    std::cout << std::endl;
+
+    // Partition the vector: even numbers first, then odd numbers
+    // std::partition returns an iterator to the first element of the second group (odd numbers in this case)
+    std::partition(numbers.begin(), numbers.end(), isEven);
+
+    std::cout << "Vector after partitioning (evens first): ";
+    for (int n : numbers) {
+        std::cout << n << " ";
+    }
+    std::cout << std::endl;
+
+    return 0;
+}
+In this example:
+A std::vector named numbers is initialized with a mix of even and odd integers.
+The isEven function acts as the predicate, returning true if a number is even and false if it's odd.
+std::partition(numbers.begin(), numbers.end(), isEven) rearranges the elements in numbers such that all elements for which isEven returns true (even numbers) come before all elements for which isEven returns false (odd numbers). The relative order within the even and odd partitions is not guaranteed by std::partition. If preserving relative order is necessary, std::stable_partition should be used instead.
