@@ -1,0 +1,76 @@
+Implementing binary search on a sorted std::vector in C++ can be achieved using std::binary_search, std::lower_bound, and std::upper_bound from the <algorithm> header.
+1. Using std::binary_search:
+This function checks for the presence of a specific value within a sorted range and returns a boolean indicating whether the value is found.
+C++
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Required for std::binary_search
+
+int main() {
+    std::vector<int> vec = {10, 20, 30, 40, 50};
+    int value_to_find = 30;
+
+    if (std::binary_search(vec.begin(), vec.end(), value_to_find)) {
+        std::cout << value_to_find << " found in the vector." << std::endl;
+    } else {
+        std::cout << value_to_find << " not found in the vector." << std::endl;
+    }
+
+    value_to_find = 35;
+    if (std::binary_search(vec.begin(), vec.end(), value_to_find)) {
+        std::cout << value_to_find << " found in the vector." << std::endl;
+    } else {
+        std::cout << value_to_find << " not found in the vector." << std::endl;
+    }
+
+    return 0;
+}
+2. Using std::lower_bound:
+This function returns an iterator to the first element in the range that is not less than (i.e., greater than or equal to) the given value. If the value is present, it points to its first occurrence. If not, it points to the position where the value could be inserted while maintaining sorted order. 
+C++
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Required for std::lower_bound
+
+int main() {
+    std::vector<int> vec = {10, 20, 30, 30, 40, 50};
+    int value_to_find = 30;
+
+    auto it_lower = std::lower_bound(vec.begin(), vec.end(), value_to_find);
+
+    if (it_lower != vec.end() && *it_lower == value_to_find) {
+        std::cout << value_to_find << " found at index: " << std::distance(vec.begin(), it_lower) << std::endl;
+    } else {
+        std::cout << value_to_find << " not found in the vector." << std::endl;
+    }
+
+    value_to_find = 35;
+    it_lower = std::lower_bound(vec.begin(), vec.end(), value_to_find);
+    std::cout << "Position for inserting " << value_to_find << " is at index: " << std::distance(vec.begin(), it_lower) << std::endl;
+
+    return 0;
+}
+3. Using std::upper_bound:
+This function returns an iterator to the first element in the range that is strictly greater than the given value. This is useful for finding the end of a range of equal elements. 
+C++
+
+#include <iostream>
+#include <vector>
+#include <algorithm> // Required for std::upper_bound
+
+int main() {
+    std::vector<int> vec = {10, 20, 30, 30, 40, 50};
+    int value_to_find = 30;
+
+    auto it_upper = std::upper_bound(vec.begin(), vec.end(), value_to_find);
+
+    std::cout << "First element strictly greater than " << value_to_find << " is at index: " << std::distance(vec.begin(), it_upper) << std::endl;
+
+    // Combining lower_bound and upper_bound to find the count of an element
+    auto it_lower = std::lower_bound(vec.begin(), vec.end(), value_to_find);
+    std::cout << "Count of " << value_to_find << ": " << std::distance(it_lower, it_upper) << std::endl;
+
+    return 0;
+}
