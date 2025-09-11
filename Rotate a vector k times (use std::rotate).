@@ -1,0 +1,74 @@
+The std::rotate algorithm in C++ STL can be used to rotate a vector k times. It takes three iterators as arguments: first, middle, and last. The elements in the range [first, middle) are moved to the end of the range [first, last), and the elements in the range [middle, last) are moved to the beginning of the range [first, last).
+Rotating a vector k times to the left:
+To rotate a vector v to the left by k positions, the middle iterator should point to the element that will become the new first element. This element is at v.begin() + k.
+C++
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+int main() {
+    std::vector<int> v = {1, 2, 3, 4, 5, 6, 7};
+    int k = 2; // Rotate by 2 positions to the left
+
+    // Ensure k is within the bounds of the vector size
+    k %= v.size(); 
+
+    std::rotate(v.begin(), v.begin() + k, v.end());
+
+    for (int x : v) {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl; // Output: 3 4 5 6 7 1 2 
+
+    return 0;
+}
+Rotating a vector k times to the right:
+To rotate a vector v to the right by k positions, the middle iterator should point to the element that is k positions from the end of the vector. This element is at v.begin() + (v.size() - k).
+C++
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+int main() {
+    std::vector<int> v = {1, 2, 3, 4, 5, 6, 7};
+    int k = 2; // Rotate by 2 positions to the right
+
+    // Ensure k is within the bounds of the vector size
+    k %= v.size(); 
+
+    std::rotate(v.begin(), v.begin() + (v.size() - k), v.end());
+
+    for (int x : v) {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl; // Output: 6 7 1 2 3 4 5
+
+    return 0;
+}
+Using reverse iterators for right rotation (alternative):
+Another approach for right rotation is to use reverse iterators with std::rotate. This conceptually treats the right end as the "beginning" for rotation.
+C++
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+int main() {
+    std::vector<int> v = {1, 2, 3, 4, 5, 6, 7};
+    int k = 2; // Rotate by 2 positions to the right
+
+    // Ensure k is within the bounds of the vector size
+    k %= v.size(); 
+
+    std::rotate(v.rbegin(), v.rbegin() + k, v.rend());
+
+    for (int x : v) {
+        std::cout << x << " ";
+    }
+    std::cout << std::endl; // Output: 6 7 1 2 3 4 5
+
+    return 0;
+}
+In all cases, k %= v.size() is used to handle cases where k is greater than or equal to the vector's size, effectively reducing k to the equivalent number of rotations within a single cycle.
