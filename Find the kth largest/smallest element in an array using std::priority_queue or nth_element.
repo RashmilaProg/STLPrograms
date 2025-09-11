@@ -1,0 +1,71 @@
+Finding the k-th largest or smallest element in an array can be efficiently achieved using std::priority_queue or std::nth_element in C++.
+Using std::priority_queue
+For the k-th Largest Element:
+Create a min-heap (default std::priority_queue is a max-heap, so specify std::greater<int> for a min-heap).
+Iterate through the array:
+Push each element into the min-heap.
+If the heap's size exceeds k, pop the smallest element (which is at the top of the min-heap).
+After iterating through all elements, the top element of the min-heap will be the k-th largest element. 
+C++
+
+#include <vector>
+#include <queue>
+#include <functional> // For std::greater
+
+int findKthLargest(std::vector<int>& nums, int k) {
+    std::priority_queue<int, std::vector<int>, std::greater<int>> min_heap; // Min-heap
+    for (int num : nums) {
+        min_heap.push(num);
+        if (min_heap.size() > k) {
+            min_heap.pop();
+        }
+    }
+    return min_heap.top();
+}
+For the k-th Smallest Element:
+Create a max-heap (default std::priority_queue).
+Iterate through the array:
+Push each element into the max-heap.
+If the heap's size exceeds k, pop the largest element (which is at the top of the max-heap).
+After iterating through all elements, the top element of the max-heap will be the k-th smallest element.
+C++
+
+#include <vector>
+#include <queue>
+
+int findKthSmallest(std::vector<int>& nums, int k) {
+    std::priority_queue<int> max_heap; // Max-heap
+    for (int num : nums) {
+        max_heap.push(num);
+        if (max_heap.size() > k) {
+            max_heap.pop();
+        }
+    }
+    return max_heap.top();
+}
+Using std::nth_element
+std::nth_element is a more efficient approach with an average time complexity of O(N). It rearranges the elements in a range such that the element at the n-th position is the element that would be in that position in a sorted sequence. All elements before this position are less than or equal to it, and all elements after are greater than or equal to it.
+For the k-th Smallest Element:
+C++
+
+#include <vector>
+#include <algorithm> // For std::nth_element
+
+int findKthSmallestNthElement(std::vector<int>& nums, int k) {
+    // k-th smallest element is at index k-1 in a 0-indexed array
+    std::nth_element(nums.begin(), nums.begin() + k - 1, nums.end());
+    return nums[k - 1];
+}
+For the k-th Largest Element:
+C++
+
+#include <vector>
+#include <algorithm> // For std::nth_element
+#include <functional> // For std::greater
+
+int findKthLargestNthElement(std::vector<int>& nums, int k) {
+    // k-th largest element is at index nums.size() - k
+    std::nth_element(nums.begin(), nums.begin() + (nums.size() - k), nums.end());
+    return nums[nums.size() - k];
+}
+Note: std::nth_element modifies the input array. If the original order needs to be preserved, a copy of the array should be used.
