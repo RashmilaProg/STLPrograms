@@ -1,6 +1,7 @@
 How to Merge Two Sorted Vector in C++?
 Last Updated : 23 Jul, 2025
-Merging two sorted vectors means storing the elements of a vector into a single vector in a sorted order. In this article, we will learn how to merge two sorted vectors in C++.
+Merging two sorted vectors means storing the elements of a vector into a single vector in a sorted order. 
+In this article, we will learn how to merge two sorted vectors in C++.
 
 The simplest way to merge the two sorted vectors is by using the merge() function.  Let’s take a look at an example:
 
@@ -30,7 +31,8 @@ Explanation: The merge() function merge the two vectors v1 and v2 in sorted mann
 There are also some other methods in C++ to merge the two sorted vector. Some of them are as follows:
 
 By Sorting After Concatenation
-Copy both the vectors into resultant vector using vector insert() method. After that, sort the resultant using sort() to arrange the elements in sorted order.
+Copy both the vectors into resultant vector using vector insert() method. 
+After that, sort the resultant using sort() to arrange the elements in sorted order.
 
 
 
@@ -59,11 +61,12 @@ int main() {
 
 Output
 1 2 3 4 5 6 
+
+
 Using Multiset
-A multiset stores its elements in a sorted order by default. It can be used as a temporary storage medium to combine the elements of both vectors while maintaining sorted order, and then transfer all the elements into the resultant vector.
-
-
-
+A multiset stores its elements in a sorted order by default. 
+It can be used as a temporary storage medium to combine the elements of both vectors while maintaining sorted order, 
+and then transfer all the elements into the resultant vector.
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -88,7 +91,10 @@ Output
 1 2 3 4 5 6 
 
 
-To merge two sorted vectors into one, the optimal approach is to use a two-pointer technique, similar to the merge step in Merge Sort. This involves creating a new, larger vector and then simultaneously traversing the two input vectors with pointers, picking the smaller element at each step and adding it to the new vector until both input vectors are exhausted. 
+To merge two sorted vectors into one, the optimal approach is to use a two-pointer technique,
+similar to the merge step in Merge Sort. 
+This involves creating a new, larger vector and then simultaneously traversing the two input vectors with pointers, 
+picking the smaller element at each step and adding it to the new vector until both input vectors are exhausted. 
 cpp
 #include <vector>
 #include <algorithm> // For std::sort if you use the naive approach
