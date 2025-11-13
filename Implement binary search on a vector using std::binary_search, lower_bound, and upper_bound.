@@ -27,7 +27,8 @@ int main() {
     return 0;
 }
 2. Using std::lower_bound:
-This function returns an iterator to the first element in the range that is not less than (i.e., greater than or equal to) the given value. If the value is present, it points to its first occurrence. If not, it points to the position where the value could be inserted while maintaining sorted order. 
+This function returns an iterator to the first element in the range that is not less than (i.e., greater than or equal to) the given value. 
+If the value is present, it points to its first occurrence. If not, it points to the position where the value could be inserted while maintaining sorted order. 
 C++
 
 #include <iostream>
@@ -53,7 +54,8 @@ int main() {
     return 0;
 }
 3. Using std::upper_bound:
-This function returns an iterator to the first element in the range that is strictly greater than the given value. This is useful for finding the end of a range of equal elements. 
+This function returns an iterator to the first element in the range that is strictly greater than the given value. 
+This is useful for finding the end of a range of equal elements. 
 C++
 
 #include <iostream>
