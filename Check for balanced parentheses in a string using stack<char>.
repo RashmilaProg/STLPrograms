@@ -3,9 +3,13 @@ Initialize an empty stack: Create an empty std::stack<char> to store opening bra
 Iterate through the string: Traverse the input string character by character.
 Handle opening brackets: If the current character is an opening bracket ((, {, [), push it onto the stack. 
 Handle closing brackets: If the current character is a closing bracket (), }, ]):
-Check for empty stack: If the stack is empty, it means a closing bracket appeared without a corresponding opening bracket, so the parentheses are not balanced. Return false.
-Pop and match: Pop the top element from the stack. Check if this popped element is the corresponding opening bracket for the current closing bracket. If they don't match (e.g., ) and {), the parentheses are not balanced. Return false.
-After traversal: After iterating through the entire string, if the stack is empty, it means all opening brackets have found their corresponding closing brackets, and the parentheses are balanced. Return true. Otherwise, if the stack is not empty, it means there are unmatched opening brackets, and the parentheses are not balanced. Return false.
+Check for empty stack: If the stack is empty, it means a closing bracket appeared without a corresponding opening bracket, 
+so the parentheses are not balanced. Return false.
+Pop and match: Pop the top element from the stack. Check if this popped element is the corresponding opening bracket for the current closing bracket. 
+If they don't match (e.g., ) and {), the parentheses are not balanced. Return false.
+After traversal: After iterating through the entire string, if the stack is empty, it means all opening brackets have found their corresponding closing brackets, 
+and the parentheses are balanced. Return true. Otherwise, if the stack is not empty, it means there are unmatched opening brackets, and the parentheses are not balanced. 
+Return false.
 Here's a C++ code example demonstrating this:
 C++
 
